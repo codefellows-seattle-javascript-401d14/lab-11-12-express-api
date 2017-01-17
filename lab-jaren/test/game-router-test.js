@@ -22,7 +22,7 @@ describe('testing game router', function() {
       .then(() => done())
       .catch(done);
     });
-    it('should create a game', done => {
+    it('valid input should create a game with status 200', done => {
       superagent.post(`${baseURL}/api/games`)
       .send(mockData)
       .then(res => {
@@ -40,12 +40,53 @@ describe('testing game router', function() {
       })
       .catch(done);
     });
-    it('should return 400 status code', done => {
-      superagent.post((`${baseURL}/api/games`))
+    it('invalid input should return 400 status code', done => {
+      superagent.post(`${baseURL}/api/games`)
       .send({title: 'I am bread'})
       .then(done)
       .catch(err => {
         expect(err.status).to.equal(400);
+        done();
+      })
+      .catch(done);
+    });
+  });
+  describe('testing GET /api/games/:id', function() {
+    before(done => {
+      superagent.post(`${baseURL}/api/games`)
+      .send(mockData)
+      .then(res => {
+        this.tempGameId = res.body.id;
+        done();
+      })
+      .catch(done);
+    });
+    after(done => {
+      Game.deleteById(this.tempGameId)
+      .then(() => done())
+      .catch(done);
+    });
+    it('valid id should return a game with status 200', done => {
+      superagent.get(`${baseURL}/api/games/${this.tempGameId}`)
+      .then(res => {
+        expect(res.status).to.equal(200);
+        expect(res.body.title).to.equal('XCOM 2');
+        expect(res.body.genre).to.equal('strategy/tactics');
+        expect(res.body.developer).to.equal('2K Games, Inc.');
+        expect(res.body.publisher).to.equal('Firaxis Games, Inc.');
+        expect(res.body.platforms).to.equal('Windows, Linux, Mac, PS4, Xbox One');
+        expect(res.body.ratingESRB).to.equal('Teen');
+        expect(res.body.releaseDate).to.equal('Feb 05, 2016');
+        expect(Boolean(res.body.id)).to.equal(true);
+        done();
+      })
+      .catch(done);
+    });
+    it('invalid id should return 404 status code', done => {
+      superagent.get(`${baseURL}/api/games/42`)
+      .then(done)
+      .catch(err => {
+        expect(err.status).to.equal(404);
         done();
       })
       .catch(done);
