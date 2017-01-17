@@ -1,16 +1,23 @@
 'use strict';
-
+require('dotenv').config();
+const cors = require('cors');
+const debug = require('debug')('athletesApp: server');
 const express = require('express');
-const app = express();
 const athletes = require('./routes/athletes');
-const PORT = process.env.PORT || 3000;
+const app = express();
 
+app.use(cors());
 app.use(athletes);
-app.use((err, req, res, next) => {
-  console.error(err.message, err);
+
+app.use(function(err, req, res, next) {
+  debug('error middleware');
+  console.error(err.message);
+  if(err.status)
+    res.status(err.status).send();
   res.status(500).send('Something broke!');
   next();
 });
-app.listen(PORT, () => {
-  console.log(`server running on http://localhost:${PORT}`);
+app.listen(process.env.PORT, () => {
+  debug('server listening');
+  console.log(`server running on http://localhost:${process.env.PORT}`);
 });

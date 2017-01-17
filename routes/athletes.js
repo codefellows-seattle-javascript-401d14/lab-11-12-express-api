@@ -1,31 +1,33 @@
 'use strict';
 
-const express = require('express');
-const Router = express.Router();
+const Router = require('express').Router;
+const debug = require('debug')('athletesApp: routes-athletes');
 const jsonParser = require('body-parser').json();
-const athletes = new Router();
+const appRouter = module.exports = new Router();
 
 const Athlete = require('../model/Athlete');
 
-athletes.post('/api/athletes', jsonParser, function(req, res, next) {
+appRouter.post('/api/athletes', jsonParser, function(req, res, next) {
+  debug('POST /api/athletes');
   new Athlete(req.body).save()
-  .then(athlete => res.json(athlete))
-  .catch(next);
-});
-athletes.get('/api/athletes/:id', (req, res, next) => {
-  Athlete.fetchItem(req.params.id)
-  .then(athlete => res.json(athlete))
-  .catch(next);
-});
-athletes.get('/api/athletes', (req, res, next) => {
-  Athlete.availIDs()
   .then(athletes => res.json(athletes))
   .catch(next);
 });
-athletes.delete('/api/athletes/:id', (req, res, next) => {
-  Athlete.deleteItem(req.params.id)
-  .then(athlete => res.json(athlete))
+appRouter.get('/api/athletes/:id', function(req, res, next) {
+  debug('GET /api/athletes/:id');
+  Athlete.findById(req.params.id)
+  .then(athletes => res.json(athletes))
   .catch(next);
 });
-
-module.exports = athletes;
+appRouter.get('/api/athletes', (req, res, next) => {
+  debug('GET /api/athletes/');
+  Athlete.fetchAll()
+  .then(athletes => res.json(athletes))
+  .catch(next);
+});
+appRouter.delete('/api/athletes/:id', (req, res, next) => {
+  debug('DELETE /api/athletes/:id');
+  Athlete.deleteById(req.params.id)
+  .then(athletes => res.json(athletes))
+  .catch(next);
+});
