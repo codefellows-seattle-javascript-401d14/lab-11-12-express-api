@@ -20,6 +20,15 @@ gameRouter.get('/api/games/:id', function(req, res, next) {
 
 gameRouter.get('/api/games', function(req, res, next) {
   Game.fetchAll()
-  .then(noteIDs => res.json(noteIDs))
+  .then(gameIDs => res.json(gameIDs))
+  .catch(next);
+});
+
+gameRouter.delete('/api/games/:id', function(req, res, next) {
+  Game.deleteById(req.params.id)
+  .then(deleteResponse => {
+    res.statusCode = 204;
+    res.json(deleteResponse);
+  })
   .catch(next);
 });
