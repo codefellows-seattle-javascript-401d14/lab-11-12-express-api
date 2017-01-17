@@ -14,7 +14,7 @@ app.use(function(err, req, res, next) {
   console.error(err.message);
   if(err.status)
     res.status(err.status).send();
-  res.status(500).send('Something broke!');
+  res.status(500).send();
   next();
 });
 app.listen(process.env.PORT, () => {
