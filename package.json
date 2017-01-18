@@ -1,0 +1,41 @@
+{
+  "name": "lab-11-12-express-api",
+  "version": "1.0.0",
+  "description": "401 JS --  Lab 11 rest api using express ===",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "./node_modules/nodemon/bin/nodemon.js server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irvinemd55/lab-11-12-express-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irvinemd55/lab-11-12-express-api/issues"
+  },
+  "homepage": "https://github.com/irvinemd55/lab-11-12-express-api#readme",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "cors": "^2.8.1",
+    "debug": "^2.6.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "http-errors": "^1.5.1",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.2.0",
+    "morgan": "^1.7.0",
+    "node-uuid": "^1.4.7",
+    "nodemon": "^1.11.0",
+    "superagent": "^3.3.2"
+  }
+}
