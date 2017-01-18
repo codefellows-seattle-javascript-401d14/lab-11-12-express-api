@@ -8,14 +8,14 @@ const Athlete = require('../model/Athlete');
 const baseUrl = `http://localhost:${process.env.PORT}`;
 require('../server');
 
-describe('testing appRouter', function(){
-  describe('testing POST /api/athletes', function(){
+describe('testing appRouter', function() {
+  describe('testing POST /api/athletes', function() {
     after((done) => {
       Athlete.deleteById(this.tempAthlete.id)
       .then(() => done())
       .catch(done);
     });
-    it('shoud create an athlete', (done) => {
+    it('should create an athlete', (done) => {
       superagent.post(`${baseUrl}/api/athletes`)
       .send({
         athleteName: 'testName',
@@ -32,7 +32,7 @@ describe('testing appRouter', function(){
       .catch(done);
     });
   });
-  describe('testing POST /api/athletes with invalid data', function(){
+  describe('testing POST /api/athletes with invalid data', function() {
     it('should return 400 status code', (done) => {
       superagent.post(`${baseUrl}/api/athletes`)
     .send({
@@ -46,7 +46,7 @@ describe('testing appRouter', function(){
     .catch(done);
     });
   });
-  describe('testing DELETE /api/athletes/:id', function(){
+  describe('testing DELETE /api/athletes/:id', function() {
     before((done) => {
       this.tempAthlete = new Athlete({athleteName: 'tempAthlete', sport: 'tempSport'});
       storage.createItem('athletes', this.tempAthlete)
@@ -59,7 +59,7 @@ describe('testing appRouter', function(){
       done();
     });
   });
-  describe('testing GET /api/athletes/:id', function(){
+  describe('testing GET /api/athletes/:id', function() {
     before((done) => {
       this.tempAthlete = new Athlete({athleteName: 'tempAthlete', sport: 'tempSport'});
       storage.createItem('athletes', this.tempAthlete)
@@ -72,7 +72,7 @@ describe('testing appRouter', function(){
       done();
     });
   });
-  describe('testing GET /api/athletes/', function(){
+  describe('testing GET /api/athletes/', function() {
     it('should fetch all athletes', (done) => {
       superagent.get(`${baseUrl}/api/athletes`)
       .send();

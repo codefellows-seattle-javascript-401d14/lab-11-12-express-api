@@ -1,12 +1,14 @@
 'use strict';
 require('dotenv').config();
 const cors = require('cors');
+const morgan = require('morgan');
 const debug = require('debug')('athletesApp: server');
 const express = require('express');
 const athletes = require('./routes/athletes');
 const app = express();
 
 app.use(cors());
+app.use(morgan('dev'));
 app.use(athletes);
 
 app.use(function(err, req, res, next) {

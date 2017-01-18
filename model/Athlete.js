@@ -27,7 +27,7 @@ Athlete.deleteById = function(id) {
 };
 
 Athlete.prototype.save = function() {
-  debug('save()');
+  debug('Athlete.prototype.save()');
   if(!this.athleteName || !this.sport)
     return Promise.reject(createError(400, 'expected athleteName and sport'));
   return storage.createItem('athletes', this);
