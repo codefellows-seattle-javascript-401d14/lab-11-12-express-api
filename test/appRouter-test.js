@@ -35,9 +35,7 @@ describe('testing appRouter', function() {
   describe('testing POST /api/athletes with invalid data', function() {
     it('should return 400 status code', (done) => {
       superagent.post(`${baseUrl}/api/athletes`)
-    .send({
-      sport: 'lazyTest',
-    })
+    .send()
     .then(done)
     .catch(err=> {
       expect(err.status).to.equal(400);

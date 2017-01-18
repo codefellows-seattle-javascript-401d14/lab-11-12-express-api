@@ -14,8 +14,10 @@ app.use(athletes);
 app.use(function(err, req, res, next) {
   debug('error middleware');
   console.error(err.message);
-  if(err.status)
+  if(err.status){
     res.status(err.status).send();
+    return;
+  }
   res.status(500).send();
   next();
 });
