@@ -8,7 +8,7 @@ const Pokemon = module.exports = function(opts){
   debug('pokemon constructor');
   this.name = opts.name;
   this.type = opts.type;
-  this.pokedexNUM = opts.pokedexNUM;
+  // this.pokedexNUM = opts.pokedexNUM;
   this.moves = opts.moves;
   this.id = uuidV1();
 };
@@ -30,7 +30,7 @@ Pokemon.deleteById = function(id){
 
 Pokemon.prototype.save = function(){
   debug('pokemon.save');
-  if(!this.name || !this.type || !this.pokedexNUM)
+  if(!this.name || !this.type )
     return Promise.reject(createError(400, 'expected the name, type and pokedex number'));
   return storage.createItem('pokemon', this);
 };

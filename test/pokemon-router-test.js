@@ -8,7 +8,7 @@ const baseURL = `http://localhost:${process.env.PORT || 3000}`;
 require('../server.js');
 
 describe('testing pokemon router', function() {
-  let tempPokemon = {
+  let tempPokemon ={
     name: 'Ivysaur',
     type: 'grass',
     moves:'cut',
@@ -19,8 +19,8 @@ describe('testing pokemon router', function() {
       .then(() => done())
       .catch(done);
     });
-    it('valid input should create a game with status 200', done => {
-      superagent.post(`${baseURL}/api/games`)
+    it('valid input should create a pokemon', done => {
+      superagent.post(`${baseURL}/api/pokemon/`)
       .send(tempPokemon)
       .then(res => {
         expect(res.status).to.equal(200);
@@ -117,7 +117,7 @@ describe('testing pokemon router', function() {
     it('valid id should delete pokemon', done => {
       superagent.delete(`${baseURL}/api/pokemon/${this.tempPokemonId}`)
       .then(res => {
-        expect(res.statusCode).to.equal(204);
+        expect(res.status).to.equal(204);
         done();
       })
       .catch(done);
