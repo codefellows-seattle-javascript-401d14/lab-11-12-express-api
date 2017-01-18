@@ -19,13 +19,12 @@ app.use(function(err, req, res, next) {
   debug('error middleware');
   console.error(err.message);
   if(err.status){
-    res.status(err.status).send();
-    return;
+    return res.status(err.status).send();
   }
   res.status(500).send();
 });
 
 app.listen(process.env.PORT, () => {
   debug('Starting server');
-  console.log('SERVER UP: Lets start catching pokemon', process.env.PORT);
+  console.log('SERVER UP: Lets start catching pokemon @ port: ', process.env.PORT);
 });

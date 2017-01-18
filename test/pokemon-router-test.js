@@ -8,20 +8,24 @@ const baseURL = `http://localhost:${process.env.PORT || 3000}`;
 require('../server.js');
 
 describe('testing pokemon router', function() {
-  let tempPokemon ={
-    name: 'Ivysaur',
-    type: 'grass',
-    moves:'cut',
-  };
+  // let tempPokemon ={
+  //   name: 'Ivysaur',
+  //   type: 'grass',
+  //   moves:'cut',
+  // };
   describe('testing POST /api/pokemon', function() {
-    after(done => {
+    after((done) => {
       Pokemon.deleteById(this.tempPokemonId)
       .then(() => done())
       .catch(done);
     });
-    it('valid input should create a pokemon', done => {
-      superagent.post(`${baseURL}/api/pokemon/`)
-      .send(tempPokemon)
+    it('valid input should create a pokemon', (done) => {
+      superagent.post(`${baseURL}/api/pokemon`)
+      .send({
+        name: 'Ivysaur',
+        type: 'grass',
+        moves:'cut',
+      })
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.name).to.equal('Ivysaur');
@@ -32,7 +36,7 @@ describe('testing pokemon router', function() {
       })
       .catch(done);
     });
-    it('invalid input should return 400 status code', done => {
+    it('invalid input should return 400 status code', (done) => {
       superagent.post(`${baseURL}/api/pokemon`)
       .send({name: 'Charizard'})
       .then(done)
@@ -44,21 +48,19 @@ describe('testing pokemon router', function() {
     });
   });
   describe('testing GET /api/pokemon/:id', function() {
-    before(done => {
+    before((done) => {
       superagent.post(`${baseURL}/api/pokemon`)
-      .send(tempPokemon)
+      .send({name:'Ivysaur',
+      type: 'grass',
+      moves:'cut',
+    })
       .then(res => {
         this.tempPokemonId = res.body.id;
         done();
       })
       .catch(done);
     });
-    after(done => {
-      Pokemon.deleteById(this.tempPokemonId)
-      .then(() => done())
-      .catch(done);
-    });
-    it('valid id should return a pokemon', done => {
+    it('valid id should return a pokemon', (done) => {
       superagent.get(`${baseURL}/api/pokemon/${this.tempPokemonId}`)
       .then(res => {
         expect(res.status).to.equal(200);
@@ -69,7 +71,7 @@ describe('testing pokemon router', function() {
       })
       .catch(done);
     });
-    it('invalid id should return status 404', done => {
+    it('invalid id should return status 404', (done) => {
       superagent.get(`${baseURL}/api/pokemon/66`)
       .then(done)
       .catch(err => {
@@ -80,21 +82,20 @@ describe('testing pokemon router', function() {
     });
   });
   describe('testing GET /api/pokemon', function() {
-    before(done => {
+    before((done) => {
       superagent.post(`${baseURL}/api/pokemon`)
-      .send(tempPokemon)
+      .send({
+        name: 'Ivysaur',
+        type: 'grass',
+        moves:'cut',
+      })
       .then(res => {
         this.tempPokemonId = res.body.id;
         done();
       })
       .catch(done);
     });
-    after(done => {
-      Pokemon.deleteById(this.tempPokemonId)
-      .then(() => done())
-      .catch(done);
-    });
-    it('should return an array containing  the IDs', done => {
+    it('should return an array containing  the IDs', (done) => {
       superagent.get(`${baseURL}/api/pokemon`)
       .then(res => {
         expect(res.status).to.equal(200);
@@ -105,16 +106,20 @@ describe('testing pokemon router', function() {
     });
   });
   describe('testing DELETE /api/pokemon/:id', function() {
-    before(done => {
+    before((done) => {
       superagent.post(`${baseURL}/api/pokemon`)
-      .send(tempPokemon)
+      .send({
+        name: 'Ivysaur',
+        type: 'grass',
+        moves:'cut',
+      })
       .then(res => {
         this.tempPokemonId = res.body.id;
         done();
       })
       .catch(done);
     });
-    it('valid id should delete pokemon', done => {
+    it('valid id should delete pokemon', (done) => {
       superagent.delete(`${baseURL}/api/pokemon/${this.tempPokemonId}`)
       .then(res => {
         expect(res.status).to.equal(204);
@@ -122,7 +127,7 @@ describe('testing pokemon router', function() {
       })
       .catch(done);
     });
-    it('invalid id should return status 404', done => {
+    it('invalid id should return status 404', (done) => {
       superagent.delete(`${baseURL}/api/pokemon/66`)
       .then(done)
       .catch(err => {

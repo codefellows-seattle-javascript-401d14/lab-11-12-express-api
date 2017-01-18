@@ -30,7 +30,7 @@ Pokemon.deleteById = function(id){
 
 Pokemon.prototype.save = function(){
   debug('pokemon.save');
-  if(!this.name || !this.type )
-    return Promise.reject(createError(400, 'expected the name, type and pokedex number'));
+  if(!this.name || !this.type || !this.moves )
+    return Promise.reject(createError(400, 'expected the name, type and moves'));
   return storage.createItem('pokemon', this);
 };
