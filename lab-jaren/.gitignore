@@ -132,3 +132,4 @@ $RECYCLE.BIN/
 .nfs*
 
 # End of https://www.gitignore.io/api/git,vim,node,osx,windows,linux
+*.env
