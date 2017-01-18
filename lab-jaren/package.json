@@ -9,7 +9,8 @@
   "scripts": {
     "watch": "./node_modules/nodemon/bin/nodemon.js server.js",
     "test": "./node_modules/mocha/bin/mocha",
-    "start": "node server.js"
+    "start": "node server.js",
+    "debug": "DEBUG=game* ./node_modules/mocha/bin/mocha"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +18,13 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
     "debug": "^2.6.0",
+    "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "http-errors": "^1.5.1",
     "mkdirp": "^0.5.1",
+    "morgan": "^1.7.0",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {

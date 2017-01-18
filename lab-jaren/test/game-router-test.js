@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').load();
 const superagent = require('superagent');
 const expect = require('chai').expect;
 const Game = require('../model/game.js');

@@ -2,7 +2,7 @@
 
 const Promise = require('bluebird');
 const createError = require('http-errors');
-const debug = require('debug')('game:storage');
+const debug = require('debug')('gameapp:storage');
 const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
 const mkdirp = Promise.promisifyAll(require('mkdirp'));
 
