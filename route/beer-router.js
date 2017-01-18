@@ -6,13 +6,14 @@ const jsonParser = require('body-parser').json();
 const beerRouter = module.exports = new Router();
 
 beerRouter.post('/api/beers', jsonParser, function(req, res, next) {
-  new Beer(res.body).save()
+  new Beer(req.body).save()
   .then(beer => res.json(beer))
   .catch(next);
 });
 
 beerRouter.get('/api/beers/:id', function(req, res, next) {
-  Beer.findByID(req.params.id)
+  console.log('hello world', req.params.id);
+  Beer.findById(req.params.id)
   .then(beer => res.json(beer))
   .catch(next);
 });

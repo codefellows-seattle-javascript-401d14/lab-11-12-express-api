@@ -40,7 +40,6 @@ describe('testing beer router', function() {
       superagent.post(`${baseUrl}/api/beers`)
       .send({
         name: 'Double Dead Guy',
-        type: 'IPA',
         strength: '7.9',
       })
       .then(done)
@@ -57,26 +56,25 @@ describe('testing beer router', function() {
 describe('testing GET', function() {
   describe('testing GET /api/beers:id', function() {
     before((done) => {
-      superagent.post(`${baseUrl}/api/beers`)
-      .send({
+      new Beer({
         name: 'Double Dead Guy',
         type: 'IPA',
         strength: '7.9',
-      })
-      .then(res => {
-        this.tempBeerID = res.body.id;
+      }).save()
+      .then(beer => {
+        this.tempBeer = beer;
         done();
       })
       .catch(done);
     });
     after((done) => {
-      Beer.deleteById(this.tempBeerID)
+      Beer.deleteById(this.tempBeer.id)
       .then(() => done())
       .catch(done);
     });
 
     it('should return a beer', (done) => {
-      superagent.get(`${baseUrl}/api/beers/${this.tempBeerID}`)
+      superagent.get(`${baseUrl}/api/beers/${this.tempBeer.id}`)
       .then(res => {
         expect(res.status).to.equal(200);
         expect(res.body.name).to.equal(this.tempBeer.name);
@@ -91,18 +89,8 @@ describe('testing GET', function() {
       .catch(done);
     });
 
-    it('get /api/beers with no id should return a 400 status', (done) => {
-      superagent.get(`${baseUrl}/api/beers?`)
-      .then(done)
-      .catch(err => {
-        expect(err.status).to.equal(400);
-        done();
-      })
-      .catch(done);
-    });
-
     it('get /api/beers with bad id should return a 404 status', (done) => {
-      superagent.get(`${baseUrl}/api/beers/${this.tempBeerID}`)
+      superagent.get(`${baseUrl}/api/beers/1234`)
       .then(done)
       .catch(err => {
         expect(err.status).to.equal(404);
