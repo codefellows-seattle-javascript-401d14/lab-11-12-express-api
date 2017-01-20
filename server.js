@@ -2,7 +2,10 @@
 require('dotenv').load();
 const express = require('express');
 const PORT = process.env.PORT || 3000;
-const personRouter = require('./lib/person-router');
+const personRouter =
+require('./lib/person-router');
+const debug = require('debug');
+
 
 let app = express();
 
