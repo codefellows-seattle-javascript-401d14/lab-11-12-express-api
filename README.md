@@ -1,8 +1,15 @@
 
-<h1> Ken Lab 11/12 </h1>
+# Ken Lab 11/12 </h1>
 
-<h2> This lab was about in memory storage.</h2>
+ This lab was about in-memory storage. No real cloud databases are used in this lab.
 
+##Modules
+*server.js* - starts the server
+*personconstructor.js* - the constructor that assigns a unique Id of each instance and sets the input for ```name``` and ```hobby```.  
+*person-router.js* - parses the body of the POST requests
+*stroage.js* - location where POST requests are stored and destroyed.
+
+##How to use 
 <p> The user using the terminal interface, can write a story in the fields ```name``` and ```text```   </p>
 
 <li> Turn on the server with the command ```node server.js``` in the terminal  </li>
