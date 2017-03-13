@@ -27,3 +27,10 @@ pokemonRouter.get('/api/pokemon', function(req, res, next){
   .then(pokemonIds => res.json(pokemonIds))
   .catch(next);
 });
+
+pokemonRouter.delete('/api/pokemon/:id', function(req,res,next){
+  debug('DELETE /api/pokemon/:id');
+  Pokemon.deleteById(req.params.id)
+  .then(()=> res.sendStatus(204))
+  .catch(next);
+});

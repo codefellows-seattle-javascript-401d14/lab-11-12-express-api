@@ -1,8 +1,9 @@
 'use strict';
 
 require('dotenv').load();
-const superagent = require('superagent');
+
 const expect = require('chai').expect;
+const superagent = require('superagent');
 const Pokemon = require('../model/pokemon.js');
 const baseURL = `http://localhost:${process.env.PORT || 3000}`;
 require('../server.js');
